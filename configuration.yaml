@@ -1,0 +1,113 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 13
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Oslo
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  # api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+  ignore:
+    - philips_hue
+    - google_cast
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Weather prediction
+sensor:
+  - platform: yr
+    name: Weather
+    forecast: 5
+    monitored_conditions:
+      - temperature
+      - precipitation
+
+# Text to speech
+tts:
+  - platform: google
+
+zwave:
+  usb_path: /dev/ttyACM0
+  network_key: !secret zwave_network_key
+
+light:
+  - platform: hue
+    host: 192.168.1.150
+    allow_unreachable: true
+
+device_tracker:
+  - platform: ping
+    consider_home: 10
+    interval_seconds: 10
+    hosts:
+      tv_living_room: 192.168.1.182
+      chromecast_living_room: 192.168.1.155
+      chromecast_guest_room: 192.168.1.151
+      fredrik_iphone: 192.168.1.181
+      charlotte_iphone: 192.168.1.180
+
+# Input sliders to lights
+input_number:
+  slider_kitchen_downlights:
+    name: Slider
+    initial: 110
+    min: 0
+    max: 255
+    step: 1
+
+# Timers
+timer:
+  timer_living_room:
+    duration: '00:05:00'
+
+group: !include config/groups.yaml
+automation: !include_dir_merge_list config/automations/
+script: !include_dir_merge_list config/scripts/
+scene: !include config/scenes.yaml
+media_player: !include config/media_players.yaml
+input_boolean: !include config/input_booleans.yaml

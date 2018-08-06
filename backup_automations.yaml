@@ -1,0 +1,281 @@
+#Living room light automations
+
+- alias: Living room lights on if there is motion
+  trigger:
+    platform: state
+    entity_id: sensor.aeotec_multisensor_6_living_room_burglar
+  condition:
+    condition: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_living_room_burglar
+    above: 1
+  action:
+    - service: light.turn_on
+      entity_id: light.ph5
+      data:
+        brightness: 230
+        transition: 2
+        rgb_color: [255,211,129]
+#    - delay:
+#        milliseconds: 200
+    - service: light.turn_on
+      entity_id: light.wood
+      data:
+        brightness: 131
+        transition: 2
+        rgb_color: [220,179,103]
+    - service: light.turn_on
+      entity_id: light.aj
+      data:
+        brightness: 55
+        transition: 2
+        rgb_color: [144,116,65]
+
+- alias: Dim living room lights if there is no motion
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_living_room_burglar
+    below: 2
+    for: '00:25:00'
+  action:
+    - service: light.turn_on
+      entity_id: light.wood
+      data:
+        brightness: 25
+        transition: 3.5
+        rgb_color: [213,182,119]
+    - service: light.turn_on
+      entity_id: light.aj
+      data:
+        brightness: 5
+        transition: 3.5
+        rgb_color: [144,116,65]
+    - service: light.turn_on
+      entity_id: light.ph5
+      data:
+        brightness: 30
+        transition: 3.5
+        rgb_color: [213,182,120]
+
+- alias: Dim living room lights if there is no motion in the evening
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_living_room_burglar
+    above: 2
+    for '00:10:00'
+  condition:
+    condition: time
+    after: '23:00:00'
+    before: '06:00:00'
+  action:
+    - service: light.turn_on
+      entity_id: light.wood
+      data:
+        brightness: 25
+        transition: 3.5
+        rgb_color: [213,182,119]
+    - service: light.turn_on
+      entity_id: light.aj
+      data:
+        brightness: 5
+        transition: 3.5
+        rgb_color: [144,116,65]
+    - service: light.turn_on
+      entity_id: light.ph5
+      data:
+        brightness: 30
+        transition: 3.5
+        rgb_color: [213,182,120]
+
+- alias: Turn off living room lights if there is no motion
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_living_room_burglar
+    below: 2
+    for: '00:40:00'
+  action:
+    - service: light.turn_off
+      entity_id: light.wood
+      data:
+        transition: 1
+    - delay: '00:00:01'
+    - service: light.turn_off
+      entity_id: light.aj
+      data:
+        transition: 1
+    - delay: '00:00:01'
+    - service: light.turn_off
+      entity_id: light.ph5
+      data:
+        transition: 1
+
+- alias: Turn off living room lights if there is no motion in the evening
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_living_room_burglar
+    below: 2
+    for: '00:15:00'
+  condition:
+    condition: time
+    after: '23:00:00'
+    before: '06:00:00'
+  action:
+    - service: light.turn_off
+      entity_id: light.wood
+      data:
+        transition: 1
+    - delay: '00:00:01'
+    - service: light.turn_off
+      entity_id: light.aj
+      data:
+        transition: 1
+    - delay: '00:00:01'
+    - service: light.turn_off
+      entity_id: light.ph5
+      data:
+        transition: 1
+
+- alias: Turn on bed room lights if there is motion on a weekday
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_bed_room_burglar
+    above: 2
+  condition:
+    condition: time
+    after: '06:15:00'
+    before: '22:00:00'
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: light.turn_on
+    entity_id: light.kongle
+    data:
+      brightness: 190
+      color_temp: 374
+
+- alias: Turn on bed room lights if there is motion in a weekend
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_bed_room_burglar
+    above: 2
+  condition:
+    condition: time
+    after: '09:00:00'
+    before: '23:00:00'
+    weekday:
+      - sat
+      - sun
+  action:
+    service: light.turn_on
+    entity_id: light.kongle
+    data:
+      brightness: 190
+      color_temp: 374
+
+- alias: Reduced bed room lights on if there is motion on a weekend night
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_bed_room_burglar
+    above: 2
+  condition:
+    condition: time
+    after: '23:00:00'
+    before: '01:30:00'
+    weekday:
+      - fri  
+      - sat
+      - sun
+  action:
+    service: light.turn_on
+    entity_id: light.kongle
+    data:
+      brightness: 1
+      color_temp: 153
+
+- alias: Reduced bed room lights if there is motion on a weekday night
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_bed_room_burglar
+    above: 2
+  condition:
+    condition: time
+    after: '22:00:00'
+    before: '00:00:00'
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: light.turn_on
+    entity_id: light.kongle
+    data:
+      brightness: 1
+      color_temp: 153
+
+- alias: Dim bed room lights if there is no motion
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_bed_room_burglar
+    below: 2
+    for: '00:04:00'
+  action:
+    service: light.turn_on
+    entity_id: light.kongle
+    data:
+      transition: 3
+      brightness: 1
+      color_temp: 153
+
+- alias: Turn off bed room lights if there is no motion
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_bed_room_burglar
+    below: 2
+    for: '00:08:00'
+  action:
+    service: light.turn_off
+    entity_id: light.kongle
+
+- alias: Turn off bed room night lights if there is no motion
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_bed_room_burglar
+    below: 2
+    for: '00:00:01'
+  condition:
+    condition: time
+    after: '22:00:00'
+    before: '01:31:00'
+  action:
+    service: light.turn_off
+    entity_id: light.kongle
+
+- alias: Dim lights when Chromecast is playing
+  trigger:
+  - platform: state
+    entity_id: media_player.chromecast_stue
+    to: 'playing'
+  action:
+    - service: light.turn_on
+      entity_id: light.wood
+      data:
+        transition: 2
+        brightness: 55
+
+- alias: Set lights to normal when Chromecast stops playing
+  trigger:
+  - platform: state
+    entity_id: media_player.chromecast_stue
+    from: 'playing'
+  action:
+    - service: light.turn_on
+      entity_id: light.wood
+      data:
+        brightness: 131
+        transition: 2
+        rgb_color: [208,184,117]

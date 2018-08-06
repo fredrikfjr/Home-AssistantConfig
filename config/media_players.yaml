@@ -1,0 +1,28 @@
+  - platform: cast
+    host: 192.168.1.155
+  - platform: cast
+    host: 192.168.1.151
+  - platform: kodi
+    host: 192.168.0.153
+    username: !secret kodi_username
+    password: !secret kodi_password
+    turn_on_action:
+      service: media_player.kodi_call_method
+      data:
+        entity_id: media_player.kodi
+        method: Addons.ExecuteAddon
+        addonid: script.json-cec
+        params:
+          command: activate
+    turn_off_action:
+    - service: media_player.media_stop
+      data:
+        entity_id: media_player.kodi
+    - service: media_player.kodi_call_method
+      data:
+        entity_id: media_player.kodi
+        method: Addons.ExecuteAddon
+        addonid: script.json-cec
+        params:
+          command: standby
+
