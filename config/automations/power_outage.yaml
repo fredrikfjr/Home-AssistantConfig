@@ -1,0 +1,36 @@
+- alias: Everything off after a power outage
+  trigger:
+    platform: time
+    minutes: '/1'
+    seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.power_loss_state
+    state: 'on'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.Guest_room_off
+    - service: scene.turn_on
+      entity_id: scene.Bed_room_off
+    - service: scene.turn_on
+      entity_id: scene.Hall_way_off
+    - service: scene.turn_on
+      entity_id: scene.Living_room_off
+
+    - delay: '00:01:00'
+
+    # SET ALL MOTION BOOLEANS TO FALSE IN CASE MOTION DURING STARTUP
+    - service: scene.turn_off
+      entity_id: input_boolean.motion_bed_room
+    - service: scene.turn_off
+      entity_id: input_boolean.motion_guest_room
+    - service: scene.turn_off
+      entity_id: input_boolean.motion_hall_way
+    - service: scene.turn_off
+      entity_id: input_boolean.motion_living_room
+
+    # SET POWER LOSS STATE TO FALSE SINCE POWER IS BACK
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.power_loss_state
+
+

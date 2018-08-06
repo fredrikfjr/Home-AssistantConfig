@@ -1,0 +1,63 @@
+# Wardrobe lights ON and guest room DIMMED  when motion
+
+- alias: Wardrobe lights ON when motion in the hallway
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_hall_way_burglar
+    above: 3
+  condition:
+    condition: time
+    after: '06:00'
+    before: '02:00'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.Hall_way_normal
+
+# Wardrobe lights OFF when no motion for 1 minute
+
+- alias: Hall way motion boolean OFF when no motion
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_hall_way_burglar
+    below: 4
+    for: '00:01:30'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.motion_hall_way
+    - service: scene.turn_on
+      entity_id: scene.Hall_way_off
+
+# Guest room lights ON when motion in hallway
+
+- alias: Guest room lights dimmed when motion in the hallway
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_hall_way_burglar
+    above: 3
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.carmina
+        state: 'off'
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.Guest_room_dimmed_fast
+
+- alias: Guest room lights OFF when no motion in hallway
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_hall_way_burglar
+    below: 4
+    for: '00:01:30'
+  condition:
+    condition: numeric_state
+    entity_id: light.carmina
+    value_template: '{{ state.attributes.brightness }}'
+    below: 185
+  action:
+    - service: scene.turn_on
+      entity_id: scene.Guest_room_off

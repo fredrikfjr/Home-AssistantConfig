@@ -1,0 +1,54 @@
+- alias: Guest room lights on when motion
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_guest_room_burglar
+    above: 3
+  action:
+    - service: scene.turn_on
+      entity_id: scene.Guest_room_normal
+    - service: light.turn_on
+      entity_id: light.aeotec_smart_dimmer_6_guest_room_level
+
+- alias: Guest room lights dimmed when no motion
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_guest_room_burglar
+    below: 4
+    for: '00:04:00'
+#  condition:
+#    condition: numeric_state
+#    entity_id: sensor.aeotec_smart_dimmer_6_guest_room_power
+#    below: 1
+  action:
+    - service: scene.turn_on
+      entity_id: scene.Guest_room_dimmed
+
+- alias: Guest room lights off when no motion
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aeotec_multisensor_6_guest_room_burglar
+    below: 4
+    for: '00:05:00'
+#  condition:
+#    condition: numeric_state
+#    entity_id: sensor.aeotec_smart_dimmer_6_guest_room_power
+#    below: 1
+  action:
+    - service: scene.turn_on
+      entity_id: scene.Guest_room_off
+
+#- alias: Guest room lights off when reading light off
+#  trigger:
+#    platform: numeric_state
+#    entity_id: sensor.aeotec_smart_dimmer_6_guest_room_power
+#    below: 1
+#  action:
+#    - service: input_boolean.turn_off
+#      entity_id: input_boolean.motion_guest_room
+#    - service: scene.turn_on
+#      entity_id: scene.Guest_room_off
+#    - service: light.turn_off
+#      entity_id: light.aeotec_smart_dimmer_6_guest_room_level
+
+
+

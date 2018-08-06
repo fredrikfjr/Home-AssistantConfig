@@ -1,0 +1,155 @@
+# --------------------------
+# Turn off all automations
+# --------------------------
+
+- alias: Bed room automations off
+  trigger:
+    platform: state
+    entity_id: input_boolean.automations_bed_room
+    from: 'on'
+    to: 'off'
+  action:
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_dimmed_if_there_is_motion_on_a_weekend_night
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_dimmed_if_there_is_motion_on_a_weekend_night_2
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_dimmed_if_there_is_no_motion_in_a_weekend
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_dimmed_if_there_is_no_motion_on_a_weekday
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_off_no_motion_000130
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_off_no_motion_2200
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_on_if_there_is_motion_in_a_weekend
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_on_if_there_is_motion_on_a_weekday
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_on_if_there_is_motion_on_a_weekday_night
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_turned_off_if_there_is_no_motion_on_a_weekday
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_turned_off_if_there_is_no_motion_on_a_weekday_night
+    - service: automation.turn_off
+      entity_id: automation.bed_room_lights_turned_off_if_there_is_no_motion_on_a_weekend_day
+
+
+- alias: Bed room automations on
+  trigger:
+    platform: state
+    entity_id: input_boolean.automations_bed_room
+    from: 'off'
+    to: 'on'
+  action:
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_dimmed_if_there_is_motion_on_a_weekend_night
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_dimmed_if_there_is_motion_on_a_weekend_night_2
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_dimmed_if_there_is_no_motion_in_a_weekend
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_dimmed_if_there_is_no_motion_on_a_weekday
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_off_no_motion_000130
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_off_no_motion_2200
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_on_if_there_is_motion_in_a_weekend
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_on_if_there_is_motion_on_a_weekday
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_on_if_there_is_motion_on_a_weekday_night
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_turned_off_if_there_is_no_motion_on_a_weekday
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_turned_off_if_there_is_no_motion_on_a_weekday_night
+    - service: automation.turn_on
+      entity_id: automation.bed_room_lights_turned_off_if_there_is_no_motion_on_a_weekend_day
+
+
+# -------------------------------
+# BUTTON PRESSED ONCE
+# -------------------------------
+
+- alias: Button once
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.fibaro_system_fgpb101_button
+      scene_id: 1
+      scene_data: 7680
+#  condition:
+#    condition: state
+#    entity_id: input_boolean.bed_room_light_status
+#    state: 'on'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.automations_bed_room
+    - service: scene.turn_on
+      entity_id: scene.Bed_room_normal
+    - delay: '01:00:00'
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.automations_bed_room
+    - service: scene.turn_on
+      entity_id: scene.Bed_room_off
+
+
+# -------------------------------
+# BUTTON PRESSED TWO TIMES
+# -------------------------------
+
+- alias: Button twice
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.fibaro_system_fgpb101_button
+      scene_id: 1
+      scene_data: 7860
+#  condition:
+#    condition: state
+#    entity_id: input_boolean.bed_room_light_status
+#    state: 'off'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.Bed_room_read
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.automations_bed_room
+    - delay: '01:00:00'
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.automations_bed_room
+    - service: scene.turn_on
+      entity_id: scene.Bed_room_off
+
+
+# -------------------------------
+# BUTTON PRESSED THREE TIMES
+# -------------------------------
+
+- alias: Button once, light already off
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.fibaro_system_fgpb101_button
+      scene_id: 1
+      scene_data: 7800
+  action:
+    - service: scene.turn_on
+      entity_id: scene.Bed_room_off
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.automations_bed_room
+    - delay: '01:00:00'
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.automations_bed_room
+    - service: scene.turn_on
+      entity_id: scene.Bed_room_off
+
+
+
+
+
+
+
