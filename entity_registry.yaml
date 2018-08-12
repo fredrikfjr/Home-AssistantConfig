@@ -23,32 +23,32 @@ zwave.everspring_an180_plugin_onoff_module:
   name:
   platform: zwave
   unique_id: node-9
-sensor.aeotec_zw100_multisensor_6_temperature:
+sensor.aeotec_multisensor_6_living_room_temperature:
   config_entry_id:
   name:
   platform: zwave
   unique_id: 2-72057594076479506
-sensor.aeotec_zw100_multisensor_6_luminance:
+sensor.aeotec_multisensor_6_living_room_luminance:
   config_entry_id:
   name:
   platform: zwave
   unique_id: 2-72057594076479538
-sensor.aeotec_zw100_multisensor_6_relative_humidity:
+sensor.aeotec_multisensor_6_living_room_relative_humidity:
   config_entry_id:
   name:
   platform: zwave
   unique_id: 2-72057594076479570
-sensor.aeotec_zw100_multisensor_6_ultraviolet:
+sensor.aeotec_multisensor_6_living_room_ultraviolet:
   config_entry_id:
   name:
   platform: zwave
   unique_id: 2-72057594076479922
-sensor.aeotec_zw100_multisensor_6_sourcenodeid:
+sensor.aeotec_multisensor_6_living_room_sourcenodeid:
   config_entry_id:
   name:
   platform: zwave
   unique_id: 2-72057594077528097
-sensor.aeotec_zw100_multisensor_6_burglar:
+sensor.aeotec_multisensor_6_living_room_burglar:
   config_entry_id:
   name:
   platform: zwave
@@ -78,13 +78,48 @@ sensor.everspring_an180_plugin_onoff_module_alarm_level:
   name:
   platform: zwave
   unique_id: 9-72057594194968593
-sensor.aeotec_zw100_multisensor_6_alarm_type:
+sensor.aeotec_multisensor_6_living_room_alarm_type:
   config_entry_id:
   name:
   platform: zwave
   unique_id: 2-72057594077528065
-sensor.aeotec_zw100_multisensor_6_alarm_level:
+sensor.aeotec_multisensor_6_living_room_alarm_level:
   config_entry_id:
   name:
   platform: zwave
   unique_id: 2-72057594077528081
+light.closet:
+  config_entry_id: b90ca64a0b6743bab276b76f766e8fef
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:02:9d:91:f9-0b
+light.kongle:
+  config_entry_id: b90ca64a0b6743bab276b76f766e8fef
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:02:b9:a3:1d-0b
+light.ph5:
+  config_entry_id: b90ca64a0b6743bab276b76f766e8fef
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:03:12:8d:72-0b
+light.carmina:
+  config_entry_id: b90ca64a0b6743bab276b76f766e8fef
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:02:b9:b0:5b-0b
+light.aj:
+  config_entry_id: b90ca64a0b6743bab276b76f766e8fef
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:03:79:d7:02-0b
+light.wood:
+  config_entry_id: b90ca64a0b6743bab276b76f766e8fef
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:03:10:9f:e8-0b
+media_player.bad:
+  config_entry_id: 4b4e99f139ef45f79d9c922d0959018a
+  name:
+  platform: sonos
+  unique_id: RINCON_7828CA00B3CE01400
