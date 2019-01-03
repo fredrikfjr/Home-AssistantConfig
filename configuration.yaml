@@ -38,10 +38,10 @@ updater:
   # include_used_components: true
 
 # Discover some devices automatically
-discovery:
-  ignore:
-    - philips_hue
-    - google_cast
+#discovery:
+#  ignore:
+#    - philips_hue
+#    - google_cast
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -75,10 +75,16 @@ tts:
 #  usb_path: /dev/ttyACM0
 #  network_key: !secret zwave_network_key
 
-light:
-  - platform: hue
-    host: 192.168.1.150
-    allow_unreachable: true
+#light:
+#  - platform: hue
+#    host: 192.168.1.150
+#    allow_unreachable: true
+
+hue:
+  bridges:
+    - host: 192.168.1.150
+      allow_unreachable: true
+      allow_hue_groups: true
 
 device_tracker:
   - platform: ping
