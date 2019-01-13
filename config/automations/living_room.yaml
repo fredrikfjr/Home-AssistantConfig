@@ -104,10 +104,10 @@
  #Living room lights on when there is motion
 - alias: Living room lights on when motion, daylight
   trigger:
-    platform: state
-    entity_id: timer.timer_living_room
-    from: 'idle'
-    to: 'active'
+    platform: event
+    event_type: timer.started
+    event_data:
+      entity_id: timer.timer_living_room
   condition:
     condition: and
     conditions:
@@ -115,12 +115,10 @@
        entity_id: sensor.aeotec_multisensor_6_living_room_luminance
        below: '140'
   action:
-    - service: scene.turn_on
-      entity_id: scene.Living_room_normal_day
-    - service: hue.hue_activate_scene
-      data:
-        group_name: "Living room"
-        scene_name: "Hjem fra jobb"
+     - service: hue.hue_activate_scene
+       data:
+         group_name: "Living room"
+         scene_name: "Hjem fra jobb"
 
 
 # - alias: Living room lights on when motion, normal
