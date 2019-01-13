@@ -1,7 +1,3 @@
-  - platform: cast
-    host: 192.168.1.155
-  - platform: cast
-    host: 192.168.1.151
   - platform: kodi
     host: 192.168.0.153
     username: !secret kodi_username

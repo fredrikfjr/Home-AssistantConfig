@@ -28,7 +28,7 @@
     - service: hue.hue_activate_scene
       data:
         group_name: "Living room"
-        scene_name: "Read"
+        scene_name: "Hjem fra jobb"
 
 
 # Living room timer start, daytime

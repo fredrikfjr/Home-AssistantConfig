@@ -42,25 +42,6 @@
       state: on
       brightness: 75
 
-- name: Living_room_normal_evening
-  entities:
-    light.aj:
-      state: off
-      transition: 2
-    light.ph5:
-      state: on
-      brightness: 254
-      rgb_color: [255,213,133]
-      transition: 2
-    light.wood:
-      state: on
-      brightness: 230
-      rgb_color: [255,206,118]
-      transition: 2
-    light.aeotec_smart_dimmer_6_living_room_level:
-      state: on
-      brightness: 75
-
 - name: Living_room_dimmed
   entities:
     light.aj:
