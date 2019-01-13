@@ -55,7 +55,7 @@ logbook:
 # Enables a map showing the location of tracked devices
 map:
 
-# Track the sun
+# Track the sun. Is the hight of terrain accounted for here?
 sun:
 
 # Weather prediction
