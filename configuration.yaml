@@ -37,12 +37,6 @@ updater:
   # Optional, allows Home Assistant developers to focus on popular components.
   # include_used_components: true
 
-# Discover some devices automatically
-#discovery:
-#  ignore:
-#    - philips_hue
-#    - google_cast
-
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
@@ -71,15 +65,6 @@ sensor:
 tts:
   - platform: google
 
-#zwave:
-#  usb_path: /dev/ttyACM0
-#  network_key: !secret zwave_network_key
-
-#light:
-#  - platform: hue
-#    host: 192.168.1.150
-#    allow_unreachable: true
-
 hue:
   bridges:
     - host: 192.168.1.150
@@ -96,15 +81,6 @@ device_tracker:
       chromecast_guest_room: 192.168.1.151
       fredrik_iphone: 192.168.1.181
       charlotte_iphone: 192.168.1.180
-
-# Input sliders to lights
-input_number:
-  slider_kitchen_downlights:
-    name: Slider
-    initial: 110
-    min: 0
-    max: 255
-    step: 1
 
 # Timers
 timer:
